@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LRUCache", "LRUCache\LRUCache.csproj", "{0AB37918-7009-475A-991F-CBACA7EA8133}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LRUCache.UnitTests", "LRUCache.UnitTests\LRUCache.UnitTests.csproj", "{36BDBE85-B336-41B1-A14A-CE1BDEABF641}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionFiles", "SolutionFiles", "{D4B7356C-DE01-4162-AF9C-26B409C3C1B9}"
+ProjectSection(SolutionItems) = preProject
+	.gitignore = .gitignore
+	readme.md = readme.md
+	license.md = license.md
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0AB37918-7009-475A-991F-CBACA7EA8133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AB37918-7009-475A-991F-CBACA7EA8133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AB37918-7009-475A-991F-CBACA7EA8133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AB37918-7009-475A-991F-CBACA7EA8133}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36BDBE85-B336-41B1-A14A-CE1BDEABF641}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36BDBE85-B336-41B1-A14A-CE1BDEABF641}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36BDBE85-B336-41B1-A14A-CE1BDEABF641}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36BDBE85-B336-41B1-A14A-CE1BDEABF641}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
