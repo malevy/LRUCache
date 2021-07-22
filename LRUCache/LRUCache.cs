@@ -7,25 +7,38 @@ namespace net.malevy
     public class LRUCache<TKey, TValue> where TKey:IComparable
     {
         private readonly int _maxSize;
-        private readonly TValue _missingValue;
         private readonly IDictionary<TKey, TValue> _store =  new Dictionary<TKey, TValue>();
         private readonly LinkedList<TKey> _history = new LinkedList<TKey>();
         
-        public LRUCache(int maxSize = 10, TValue missingValue = default(TValue))
+        public LRUCache(int maxSize = 10)
         {
             if (maxSize <= 0) throw new ArgumentOutOfRangeException(nameof(maxSize));
             _maxSize = maxSize;
-            _missingValue = missingValue;
         }
 
         public int MaxSize => _maxSize;
 
-        public TValue Get(TKey key)
+        public TValue Get(TKey key, TValue defaultValue = default(TValue))
         {
             if (key == null) throw new ArgumentNullException(nameof(key));
-            if (!_store.ContainsKey(key)) return _missingValue;
+            if (!_store.ContainsKey(key)) return defaultValue;
             
-            var node =_store[key];
+            return GetInternal(key);
+        }
+
+        public TValue Get(TKey key, Func<TValue> defaultFactory) 
+        {
+            if (key == null) throw new ArgumentNullException(nameof(key));
+            if (defaultFactory == null) throw new ArgumentNullException(nameof(defaultFactory));
+            
+            if (!_store.ContainsKey(key)) return defaultFactory.Invoke();
+
+            return GetInternal(key);
+        }
+        
+        private TValue GetInternal(TKey key)
+        {
+            var node = _store[key];
             TouchKey(key);
             return node;
         }
@@ -59,7 +72,6 @@ namespace net.malevy
         public ICollection<TValue> Values()
         {
             var values = _history
-                .Select(k => k)
                 .Where(k => _store.ContainsKey(k))
                 .Select(k => _store[k])
                 .ToArray();
@@ -82,7 +94,7 @@ namespace net.malevy
         private void TouchKey(TKey key)
         {
             var head = _history.First;
-            if (head != null && key.Equals(head.Value)) return;
+            if (head != null && head.Value.CompareTo(key) == 0) return;
 
             var keyNode = _history.Find(key);
             if (null != keyNode) _history.Remove(keyNode);

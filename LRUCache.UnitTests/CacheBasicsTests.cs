@@ -50,9 +50,18 @@ namespace LRUCache.UnitTests
         [Test]
         public void CanSetMissingValueValue()
         {
-            var missingValueValue = "NOT FOUND";
-            var cache = new LRUCache<int, string>(10, missingValueValue);
-            Assert.That(cache.Get(1), Is.EqualTo(missingValueValue));
+            var missingValue = "NOT FOUND";
+            var cache = new LRUCache<int, string>(10);
+            Assert.That(cache.Get(1, missingValue), Is.EqualTo(missingValue));
         }
+        
+        [Test]
+        public void CanSetMissingValueValueWithFactory()
+        {
+            var missingValue = "NOT FOUND";
+            var cache = new LRUCache<int, string>(10);
+            Assert.That(cache.Get(1, () => missingValue), Is.EqualTo(missingValue));
+        }
+
     }
 }
