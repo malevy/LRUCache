@@ -75,14 +75,14 @@ namespace net.malevy
             _store.Clear();
         }
 
-        public ICollection<TKey> Keys()
+        public IEnumerable<TKey> Keys()
         {
             var keys = new TKey[_history.Count];
             _history.CopyTo(keys, 0);
             return keys;
         }
 
-        public ICollection<TValue> Values()
+        public IEnumerable<TValue> Values()
         {
             var values = _history
                 .Where(k => _store.ContainsKey(k))
