@@ -35,6 +35,19 @@ namespace net.malevy
 
             return GetInternal(key);
         }
+
+        public TValue GetOrAdd(TKey key, Func<TKey, TValue> missingValueFactory)
+        {
+            if (key == null) throw new ArgumentNullException(nameof(key));
+            if (missingValueFactory == null) throw new ArgumentNullException(nameof(missingValueFactory));
+
+            if (!_store.ContainsKey(key))
+            {
+                Put(key, missingValueFactory.Invoke(key));
+            }
+
+            return GetInternal(key);
+        }
         
         private TValue GetInternal(TKey key)
         {
@@ -78,7 +91,6 @@ namespace net.malevy
 
             return values;
         }
-        
         
         private void EvictIfNeeded()
         {

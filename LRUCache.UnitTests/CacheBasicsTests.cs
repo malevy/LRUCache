@@ -63,5 +63,40 @@ namespace LRUCache.UnitTests
             Assert.That(cache.Get(1, () => missingValue), Is.EqualTo(missingValue));
         }
 
+        [Test]
+        public void WhenKeyIsNotPresent_UseFactoryAndAdd()
+        {
+            var cache = new LRUCache<int, int>(10);
+            var factoryCalled = false;
+            var expected = 100;
+            var actual = cache.GetOrAdd(1, k =>
+            {
+                factoryCalled = true;
+                return expected;
+            });
+            
+            Assert.That(factoryCalled, "factory was not called");
+            Assert.That(actual, Is.EqualTo(expected));
+            
+        }
+
+        [Test]
+        public void WhenKeyIsPresent_FactoryNotCalled()
+        {
+            var cache = new LRUCache<int, int>(10);
+            var expected = 100;
+            cache.Put(1, expected);
+            var factoryCalled = false;
+            var actual = cache.GetOrAdd(1, k =>
+            {
+                factoryCalled = true;
+                return expected;
+            });
+            
+            Assert.That(factoryCalled, Is.False, "factory should not have been called");
+            Assert.That(actual, Is.EqualTo(expected));
+            
+        }
+
     }
 }
